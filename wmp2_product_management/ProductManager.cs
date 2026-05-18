@@ -16,7 +16,7 @@ namespace wmp2_product_management
         {
             while (true)
             {
-                Console.Write("Enter Category (or Q to stop): ");
+                Console.Write("Enter Category (or 'Q' to stop): ");
                 string category = Console.ReadLine()?.Trim() ?? "";
 
                 if (category.ToLower() == "q")
