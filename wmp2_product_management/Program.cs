@@ -46,7 +46,6 @@ while (true)
             }
         case "5":
             {
-
                 manager.RemoveProduct();
                 break;
             }

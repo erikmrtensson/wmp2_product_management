@@ -55,12 +55,12 @@ namespace wmp2_product_management
                 return;
             }
 
-            Console.WriteLine($"{"ID",-6}{"Category",-16}{"Name",-16}{"Price"}"); // Better aligned header
-            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine("\n========= PRODUCT LIST =========\n");
+
 
             foreach (var product in _products.OrderBy(p => p.Price))
             {
-                Console.WriteLine($"{product.Id,-6}{product.Category,-16}{product.Name,-16}{product.Price} kr"); // Aligned columns
+                Console.WriteLine($"{product.Id,-6}| {product.Category,-16}| {product.Name,-16}| {product.Price} kr"); // Aligned columns
             }
 
             Console.WriteLine("----------------------------------------------");
@@ -110,7 +110,7 @@ namespace wmp2_product_management
             Console.ForegroundColor = ConsoleColor.Green;
             foreach (var p in results)
             {
-                Console.WriteLine($"{p.Id,-6}{p.Category,-16}{p.Name,-16}{p.Price} kr");
+                Console.WriteLine($"{p.Id,-6}| {p.Category,-16}| {p.Name,-16}| {p.Price} kr");
             }
             Console.ResetColor();
             Console.WriteLine();
@@ -189,6 +189,7 @@ namespace wmp2_product_management
             }
 
             var product = _products.FirstOrDefault(p => p.Id == id);
+
             if (product == null) 
             { 
                 PrintError("Product not found."); 
@@ -233,8 +234,13 @@ namespace wmp2_product_management
 
         public void SaveToFile()
         {
-            string json = JsonSerializer.Serialize(_products, new JsonSerializerOptions { WriteIndented = true });
+            JsonSerializerOptions options = new JsonSerializerOptions();
+            options.WriteIndented = true;
+
+            string json = JsonSerializer.Serialize(_products, options);
+
             File.WriteAllText(FilePath, json);
+
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Products saved to {FilePath}\n");
             Console.ResetColor();
